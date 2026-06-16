@@ -1,0 +1,68 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def nonlin(x, deriv=False):
+
+    if deriv:
+
+        return x * (1 - x)
+
+    return 1 / (1 + np.exp(-x))
+
+
+
+X = np.array([[0, 0, 1],
+
+              [0, 1, 1],
+
+              [1, 0, 1],
+
+              [1, 1, 1]])
+
+
+
+y = np.array([[0], [1], [1], [0]])
+
+np.random.seed(1)
+
+syn0 = 2 * np.random.random((3, 4)) - 1
+
+syn1 = 2 * np.random.random((4, 1)) - 1
+
+error_history = []
+
+for j in range(60000):
+
+    l1 = nonlin(np.dot(X, syn0))
+
+    l2 = nonlin(np.dot(l1, syn1))
+
+    l2_error = y - l2
+
+    l2_delta = l2_error * nonlin(l2, deriv=True)
+
+    l1_error = l2_delta.dot(syn1.T)
+
+    l1_delta = l1_error * nonlin(l1, deriv=True)
+
+    
+
+    syn1 += l1.T.dot(l2_delta)
+
+    syn0 += X.T.dot(l1_delta)
+
+    error_history.append(np.mean(np.abs(l2_error)))
+
+
+
+#or replace bottom with print("Output:"), print(l2)
+
+# Plot the learning curve: 
+plt.plot(error_history)
+plt.title('Neural Network Learning Curve')
+plt.xlabel('Iteration')
+plt.ylabel('Error')
+plt.show()
+
+print("Final Output:")
+print(l2)
