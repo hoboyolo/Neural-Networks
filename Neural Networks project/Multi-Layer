@@ -9,8 +9,6 @@ def nonlin(x, deriv=False):
 
     return 1 / (1 + np.exp(-x))
 
-
-
 X = np.array([[0, 0, 1],
 
               [0, 1, 1],
@@ -18,7 +16,6 @@ X = np.array([[0, 0, 1],
               [1, 0, 1],
 
               [1, 1, 1]])
-
 
 
 y = np.array([[0], [1], [1], [0]])
@@ -45,14 +42,13 @@ for j in range(60000):
 
     l1_delta = l1_error * nonlin(l1, deriv=True)
 
-    
+
 
     syn1 += l1.T.dot(l2_delta)
 
     syn0 += X.T.dot(l1_delta)
 
     error_history.append(np.mean(np.abs(l2_error)))
-
 
 
 #or replace bottom with print("Output:"), print(l2)
