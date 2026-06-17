@@ -4,7 +4,7 @@ Neural Networks
   single and multi-layer (hidden layer) perceptron neural network in Python
 
 
-core libraries: numpy, matplotlib
+Core libraries: numpy, matplotlib
 
 
 (implemented manual backpropagation to understand matrix calculations without deep learning frameworks)
